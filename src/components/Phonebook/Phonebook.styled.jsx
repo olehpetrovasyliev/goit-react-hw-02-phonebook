@@ -24,16 +24,14 @@ export const Contact = styled.li`
   padding: 24px 12px;
   border-radius: 8px;
   border: 2px gray solid;
-  box-shadow: #000 2px;
+  box-shadow: 2px 2px blue;
   font-size: 24px;
   font-family: sans-serif;
 `;
 export const AddInput = styled.input`
   padding: 10px;
 `;
-export const SearchInput = styled.input`
-  padding: 8px;
-`;
+
 
 export const AddBtn = styled.button`
   padding: 12px;

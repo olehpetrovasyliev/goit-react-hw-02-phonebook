@@ -3,39 +3,56 @@ import {
   AddBtn,
   AddInput,
   Contact,
-  SearchBtn,
+  DelBtn,
   SearchInput,
   StyledForm,
 } from './Phonebook.styled';
+import { INIT_STATE } from './INIT_STATE';
+import { Filter } from 'components/Filter/Filter';
+
+import { AddContactForm } from 'components/AddForm/AddContactForm';
 
 export class Phonebook extends Component {
   state = {
     contacts: [],
-    filter: '',
-    name: '',
-    number: '',
+    ...INIT_STATE,
   };
 
   handleSubmit = e => {
     e.preventDefault();
+    const { name, number } = e.target;
+    this.setState(prewState => ({
+      contacts: [
+        ...this.state.contacts,
+        {
+          name: name.value,
+          number: number.value,
+          id: crypto.randomUUID(),
+        },
+      ],
+      ...INIT_STATE,
+    }));
   };
 
   handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
   };
 
-  findContacts = () => {
-    console.log(1);
+  filterContacts = e => {
+    const value = e.target.value;
+    this.setState({ filter: value });
   };
   delContact = id => {
-    this.setState(
-      prewState =>
-        (prewState.contacts = prewState.contacts.filter(
-          contact => contact.id !== id
-        ))
+    this.setState(prewState => ({
+      contacts: prewState.contacts.filter(contact => contact.id !== id),
+    }));
+  };
+  getFilteredContacts = () => {
+    return this.state.contacts.filter(contact =>
+      contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
     );
   };
-
   render() {
     return (
       <>
@@ -67,16 +84,27 @@ export class Phonebook extends Component {
           </label>
           <AddBtn type="submit">Add contact</AddBtn>
         </StyledForm>
+        {/* <AddContactForm cb={this.handleSubmit} /> */}
         {this.state.contacts.length === 0 ? (
           <h2>No contacts yet</h2>
         ) : (
-          this.state.contacts.map(contact => {
-            <Contact key={contact.id}>
-              {contact.name}: {contact.number}
-            </Contact>;
-          })
+          <>
+            <Filter
+              filter={'filter'}
+              text={'text'}
+              value={this.state.filter}
+              cb={this.filterContacts}
+            />
+            {this.getFilteredContacts().map(({ name, id, number }) => (
+              <Contact key={id}>
+                {name}: {number}
+                <DelBtn type="button" onClick={() => this.delContact(id)}>
+                  Delete
+                </DelBtn>
+              </Contact>
+            ))}
+          </>
         )}
-        <Contact>1</Contact>
       </>
     );
   }
