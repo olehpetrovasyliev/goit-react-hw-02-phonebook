@@ -16,8 +16,7 @@ export class AddContactForm extends Component {
   };
   handleSubmit = e => {
     e.preventDefault();
-    const { name, number } = e.target;
-    //add to Phonebook.state.contacts
+    // const { name, number } = e.target;
     this.props.onSubmit(this.state);
     console.log(this.state);
     this.setState({ name: '', number: '' });
