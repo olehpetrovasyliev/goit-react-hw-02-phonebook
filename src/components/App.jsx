@@ -62,7 +62,7 @@ export class App extends Component {
           <>
             <h2>Contacts</h2>
             <Filter
-              filter={'filter'}
+              // filter={'filter'}
               text={'text'}
               value={this.state.filter}
               cb={this.filterContacts}

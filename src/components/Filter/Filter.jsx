@@ -9,7 +9,6 @@ export const Filter = ({ name, type, cb, value }) => {
       name={name}
       type={type}
       onChange={cb}
-      key={crypto.randomUUID()}
       value={value}
     />
   );
