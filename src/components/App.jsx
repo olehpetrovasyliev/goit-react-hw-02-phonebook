@@ -37,6 +37,7 @@ export class App extends Component {
   };
 
   filterContacts = e => {
+    e.preventDefault();
     const value = e.target.value;
     this.setState({ filter: value });
   };
