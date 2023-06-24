@@ -1,12 +1,4 @@
 import { Component, React } from 'react';
-import {
-  AddBtn,
-  AddInput,
-  Contact,
-  DelBtn,
-  SearchInput,
-  StyledForm,
-} from './Phonebook.styled';
 
 import { Filter } from 'components/Filter/Filter';
 

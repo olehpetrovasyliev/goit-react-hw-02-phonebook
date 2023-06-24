@@ -1,10 +1,10 @@
 import { StyledAddForm } from './AddForm.styled';
-import propTypes from 'prop-types';
+// import propTypes from 'prop-types';
 import { AddContactInput } from './AddFormInpt/AddFormInput';
 import { AddContactBtn } from './AddFormInpt/AddFormInput.styled';
 import { Component } from 'react';
 
-import { Phonebook } from 'components/Phonebook/Phonebook';
+// import { Phonebook } from 'components/Phonebook/Phonebook';
 
 export class AddContactForm extends Component {
   state = {
