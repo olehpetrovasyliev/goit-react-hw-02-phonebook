@@ -66,14 +66,7 @@ export class App extends Component {
               value={this.state.filter}
               cb={this.filterContacts}
             />
-            {/* {this.getFilteredContacts().map(({ name, id, number }) => (
-              <Contact key={id}>
-                {name}: {number}
-                <DelBtn type="button" onClick={() => this.delContact(id)}>
-                  Delete
-                </DelBtn>
-              </Contact>
-            ))} */}
+
             <ContactsList
               arr={this.getFilteredContacts()}
               key={crypto.randomUUID}
