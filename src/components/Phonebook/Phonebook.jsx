@@ -7,31 +7,31 @@ import {
   SearchInput,
   StyledForm,
 } from './Phonebook.styled';
-import { INIT_STATE } from './INIT_STATE';
+
 import { Filter } from 'components/Filter/Filter';
 
 import { AddContactForm } from 'components/AddForm/AddContactForm';
+import { ContactsList } from 'components/ContactsList/ContactsList';
 
 export class Phonebook extends Component {
   state = {
     contacts: [],
-    ...INIT_STATE,
+    filter: '',
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    const { name, number } = e.target;
-    this.setState(prewState => ({
-      contacts: [
-        ...this.state.contacts,
-        {
-          name: name.value,
-          number: number.value,
-          id: crypto.randomUUID(),
-        },
-      ],
-      ...INIT_STATE,
-    }));
+  handleSubmit = ({ name, number }) => {
+    this.state.contacts.some(contact => contact.name === name)
+      ? alert('Contact already exists')
+      : this.setState(prewState => ({
+          contacts: [
+            ...prewState.contacts,
+            {
+              name,
+              number,
+              id: crypto.randomUUID(),
+            },
+          ],
+        }));
   };
 
   handleChange = e => {
@@ -57,52 +57,31 @@ export class Phonebook extends Component {
     return (
       <>
         <h1>Phonebook</h1>
-        <StyledForm onSubmit={this.handleSubmit}>
-          <label>
-            Name
-            <AddInput
-              type="text"
-              name="name"
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              required
-              value={this.state.name}
-              onChange={this.handleChange}
-            />
-          </label>
-          <label>
-            Number
-            <AddInput
-              type="tel"
-              name="number"
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-              required
-              onChange={this.handleChange}
-              value={this.state.number}
-            />
-          </label>
-          <AddBtn type="submit">Add contact</AddBtn>
-        </StyledForm>
-        {/* <AddContactForm cb={this.handleSubmit} /> */}
+        <AddContactForm onSubmit={this.handleSubmit} />
         {this.state.contacts.length === 0 ? (
           <h2>No contacts yet</h2>
         ) : (
           <>
+            <h2>Contacts</h2>
             <Filter
               filter={'filter'}
               text={'text'}
               value={this.state.filter}
               cb={this.filterContacts}
             />
-            {this.getFilteredContacts().map(({ name, id, number }) => (
+            {/* {this.getFilteredContacts().map(({ name, id, number }) => (
               <Contact key={id}>
                 {name}: {number}
                 <DelBtn type="button" onClick={() => this.delContact(id)}>
                   Delete
                 </DelBtn>
               </Contact>
-            ))}
+            ))} */}
+            <ContactsList
+              arr={this.getFilteredContacts()}
+              key={crypto.randomUUID}
+              cb={this.delContact}
+            />
           </>
         )}
       </>

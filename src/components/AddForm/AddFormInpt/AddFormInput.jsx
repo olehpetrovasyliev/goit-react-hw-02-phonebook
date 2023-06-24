@@ -31,4 +31,5 @@ AddContactInput.propTypes = {
   validator: propTypes.string,
   id: propTypes.string,
   title: propTypes.string,
+  value: propTypes.string,
 };
