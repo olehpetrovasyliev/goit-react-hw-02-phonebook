@@ -3,7 +3,7 @@ import {
   DelBtnStyled,
   StyledContact,
 } from './ContactsList.styled';
-import propTypes, { objectOf, oneOfType } from 'prop-types';
+import propTypes from 'prop-types';
 
 export const ContactsList = ({ arr, cb }) => {
   return (
