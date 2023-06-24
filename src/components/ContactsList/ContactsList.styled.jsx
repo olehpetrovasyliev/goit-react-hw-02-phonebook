@@ -24,3 +24,4 @@ export const DelBtnStyled = styled.button`
     background-color: red;
   }
 `;
+// 1
